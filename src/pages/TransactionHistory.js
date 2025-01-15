@@ -241,8 +241,6 @@ const TransactionHistory = () => {
                   columns={columns}
                   data={filteredBids}
                   progressComponent={<Loading />}
-                  // pointer
-                  // tableHeader
                   className="mt-5"
                   pagination={false}
                 />
