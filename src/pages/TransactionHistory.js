@@ -17,21 +17,10 @@ import {
 import { motion } from "framer-motion";
 
 const TransactionHistory = () => {
-  // const dispatch = useDispatch();
-
-  // const [page, setPage] = useState(0);
-  // const [startPage, setStartPage] = useState(0);
-  // const [endPage, setEndPage] = useState(10);
-
   const [selectedTab, setSelectedTab] = useState("single");
   // const [dateRange, setDateRange] = useState([null, null]);
   // const [startDate, endDate] = dateRange;
   const [searchQuery, setSearchQuery] = useState("");
-
-  // const [selectAll] = useState(false);
-  // const [, setSelectDownloadType] = useState(false);
-
-  // const pageSize = 10;
 
   const formatAmount = (amount) => {
     if (typeof amount !== "number") return "0.00";
@@ -46,13 +35,6 @@ const TransactionHistory = () => {
     setSearchQuery(value);
     sessionStorage.setItem("searchQueryFunder", value);
   };
-
-  // const closeModal = () => setIsModalOpen(false);
-
-  // const applyFilter = (range) => {
-  //   setSelectedRange(range);
-  //   closeModal();
-  // };
 
   const handleFilterButtonClick = () => {};
 
@@ -1307,16 +1289,6 @@ const TransactionHistory = () => {
     return directFundingData.data.slice(start, start + rowsPerPage);
   }, [directFundingData.data, page, rowsPerPage]);
 
-  // working formerly
-
-  // const [page, setPage] = useState(0);
-  // const itemsPerPage = 10;
-
-  // const paginatedData = React.useMemo(() => {
-  //   const start = page * itemsPerPage;
-  //   return directFundingData.data.slice(start, start + itemsPerPage);
-  // }, [directFundingData.data, page]);
-
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(
       directFundingData.data.map((row) => ({
@@ -1426,6 +1398,19 @@ const TransactionHistory = () => {
             // className="border  border-[#ccc] px-4 py-2 cursor-pointer rounded-md w-60"
           /> */}
 
+          <div>
+            <select
+              className="shadow-sm text-sm focus:outline-none cursor-pointer h-[37px] px-5 py-2.5 rounded-[5px] border border-[#949494] justify-start items-end gap-2 inline-flex md:min-w-[12.5rem]"
+              // onChange={handleFilterChange}
+              // value={activeFilter || ""}
+              // onChange={(e) => setStatus(e.target.value)}
+            >
+              <option></option>
+              <option></option>
+              <option></option>
+            </select>
+          </div>
+
           <button
             onClick={exportToExcel}
             className="py-2.5 text-xs px-5 rounded-[5px] bg-white border-[#DEDEDE] shadow-sm mr-2 flex items-center justify-center gap-1.5"
@@ -1481,44 +1466,7 @@ const TransactionHistory = () => {
                     Here is a list of your recievables from Payment disbursement
                   </span>
                 </div>
-
-                {/* <div>
-                  <select className="text-xs border border-[#DEDEDEC7] outline-none rounded-[5px] px-5 py-3 cursor-pointer">
-                    <option value="" key="">
-                      Direct Funding Request
-                    </option>
-                    <option value="" key="">
-                      Early Payment Request
-                    </option>
-                  </select>
-                </div> */}
               </div>
-
-              {/* {selectedTab === "single" && (
-                <div className="flex items-center justify-center gap-3">
-                  <div
-                    className=" text-xs rounded-md py-2.5 px-4 text-white bg-[#2EA923] cursor-pointer"
-                    onClick={handleSelectAll}
-                    // checked={selectAll}
-                  >
-                    <p>{selectAllText}</p>
-                  </div>
-                  <button
-                    style={{
-                      boxShadow: "2px 3px 10px 0px rgba(0, 0, 0, 0.10)",
-                    }}
-                    className={`text-xs  rounded-md py-2.5 px-4 text-white ${
-                      selectedRows.length === 0
-                        ? "cursor-not-allowed bg-[#C2C0C0]"
-                        : "cursor-pointer bg-secondaryColor"
-                    }`}
-                    disabled={selectedRows.length === 0}
-                    onClick={() => setAcceptPaymentModal(true)}
-                  >
-                    <p>Make Payment</p>
-                  </button>
-                </div>
-              )} */}
             </div>
             <div className="pb-3">
               <div className="pb-3">
@@ -1536,20 +1484,6 @@ const TransactionHistory = () => {
                       <span className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#F08000] h-0.5 w-5"></span>
                     )}
                   </p>
-
-                  {/* <p
-                    className={`cursor-pointer text-sm font-bold relative ${
-                      selectedTab === "bulk"
-                        ? "text-[#F08000]"
-                        : "text-[#959595]"
-                    }`}
-                    onClick={() => setSelectedTab("bulk")}
-                  >
-                    Bulk Request
-                    {selectedTab === "bulk" && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#F08000] h-0.5 w-5"></span>
-                    )}
-                  </p> */}
                 </div>
                 <Table
                   columns={columns}
@@ -1563,26 +1497,6 @@ const TransactionHistory = () => {
                 />
 
                 <div className="flex justify-center gap-x-[8px] mt-[20px]">
-                  {/* {directFundingData?.data?.length > 10 && (
-                    <Pagination
-                      // page={page}
-                      // startPage={startPage}
-                      // setEndPage={setEndPage}
-                      // endPage={endPage}
-                      // setStartPage={setStartPage}
-                      // setPage={setPage}
-
-                      page={page}
-                      startPage={startPage}
-                      setEndPage={setEndPage}
-                      endPage={endPage}
-                      setStartPage={setStartPage}
-                      setPage={setPage}
-                      // totalPages={pendingRequestHistory?.meta?.totalElements}
-                      totalPages={directFundingData?.data?.length}
-                    />
-                  )} */}
-
                   <Pagination
                     page={page}
                     setPage={setPage}
@@ -1592,14 +1506,6 @@ const TransactionHistory = () => {
                     rowsPerPage={rowsPerPage}
                     setRowsPerPage={setRowsPerPage}
                   />
-
-                  {/* <Pagination
-                    page={page}
-                    setPage={setPage}
-                    totalPages={Math.ceil(
-                      directFundingData.data.length / itemsPerPage
-                    )}
-                  /> */}
                 </div>
               </div>
             </div>
